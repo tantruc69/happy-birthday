@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Thiệp Mời Sinh Nhật Hoành Tráng</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(
+          -45deg,
+          #667eea,
+          #764ba2,
+          #f093fb,
+          #f5576c,
+          #4facfe,
+          #00f2fe
+        );
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+        touch-action: manipulation;
+        padding: 10px;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .star {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 3s infinite;
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.5);
+        }
+      }
+
+      .invitation-wrapper {
+        width: min(90vw, 380px);
+        height: min(85vh, 580px);
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      /* Desktop - 3D flip effect */
+      @media (min-width: 769px) {
+        .invitation-wrapper {
+          perspective: 2000px;
+        }
+
+        .invitation-book {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          transform-style: preserve-3d;
+          transition: transform 0.2s ease;
+          touch-action: manipulation;
+        }
+
+        .invitation-book.flip .front-cover {
+          transform: rotateY(-180deg);
+          visibility: hidden;
+        }
+
+        .invitation-book.flip .back-cover {
+          transform: rotateY(0deg);
+          visibility: visible;
+        }
+
+        .invitation-book:active {
+          transform: scale(0.98);
+        }
+
+        .front-cover {
+          transform: rotateY(0deg);
+          visibility: visible;
+          transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .back-cover {
+          transform: rotateY(180deg);
+          visibility: hidden;
+          transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+      }
+
+      /* Mobile - Slide up effect */
+      @media (max-width: 768px) {
+        .invitation-book {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          overflow: hidden;
+        }
+
+        .invitation-book:active {
+          transform: scale(0.98);
+        }
+
+        .front-cover {
+          transform: translateY(0%);
+          z-index: 10;
+          transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .back-cover {
+          transform: translateY(100%);
+          z-index: 5;
+          transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .invitation-book.flip .front-cover {
+          transform: translateY(-100%);
+          opacity: 0.8;
+        }
+
+        .invitation-book.flip .back-cover {
+          transform: translateY(0%);
+        }
+
+        /* Enhanced mobile animations */
+        .invitation-book.flip .front-cover {
+          animation: slideUpFront 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        .invitation-book.flip .back-cover {
+          animation: slideUpBack 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        @keyframes slideUpFront {
+          0% {
+            transform: translateY(0%) scale(1);
+            opacity: 1;
+            filter: blur(0px);
+          }
+          50% {
+            transform: translateY(-50%) scale(0.95);
+            opacity: 0.6;
+            filter: blur(2px);
+          }
+          100% {
+            transform: translateY(-100%) scale(0.9);
+            opacity: 0;
+            filter: blur(4px);
+          }
+        }
+
+        @keyframes slideUpBack {
+          0% {
+            transform: translateY(100%) scale(0.9);
+            opacity: 0;
+            filter: blur(4px);
+          }
+          50% {
+            transform: translateY(50%) scale(0.95);
+            opacity: 0.6;
+            filter: blur(2px);
+          }
+          100% {
+            transform: translateY(0%) scale(1);
+            opacity: 1;
+            filter: blur(0px);
+          }
+        }
+      }
+
+      .page {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        backface-visibility: hidden;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+      }
+
+      .front-cover {
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        padding: 20px;
+      }
+
+      .front-cover::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 255, 255, 0.3) 0%,
+          transparent 50%
+        );
+        animation: shimmerMove 4s ease-in-out infinite;
+      }
+
+      @keyframes shimmerMove {
+        0%,
+        100% {
+          background-position: 0% 0%;
+        }
+        50% {
+          background-position: 100% 100%;
+        }
+      }
+
+      .front-title {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(1.8em, 6vw, 2.5em);
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+        animation: titleGlow 3s ease-in-out infinite alternate;
+        position: relative;
+        z-index: 3;
+        line-height: 1.2;
+      }
+
+      @keyframes titleGlow {
+        from {
+          text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+          transform: scale(1);
+        }
+        to {
+          text-shadow: 3px 3px 25px rgba(255, 255, 255, 0.9);
+          transform: scale(1.05);
+        }
+      }
+
+      .front-subtitle {
+        font-size: clamp(1.1em, 4vw, 1.4em);
+        font-weight: 300;
+        margin: 15px 0;
+        opacity: 0.9;
+        position: relative;
+        z-index: 3;
+        line-height: 1.3;
+      }
+
+      .front-main-text {
+        font-size: clamp(1.3em, 4.5vw, 1.6em);
+        font-weight: 600;
+        margin: 20px 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 3;
+        line-height: 1.2;
+      }
+
+      .open-instruction {
+        position: absolute;
+        bottom: 30px;
+        font-size: clamp(1em, 3.5vw, 1.1em);
+        font-weight: 400;
+        animation: bounce 2s infinite;
+        opacity: 0.9;
+        z-index: 3;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 12px 24px;
+        border-radius: 25px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        touch-action: manipulation;
+        cursor: pointer;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(-5px);
+        }
+      }
+
+      .back-cover {
+        background: linear-gradient(
+          135deg,
+          #ffecd2 0%,
+          #fcb69f 50%,
+          #ff9a9e 100%
+        );
+        padding: 20px;
+        color: #2c3e50;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        box-sizing: border-box;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .back-cover::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="confetti" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="2" fill="%23ff6b6b" opacity="0.1"/><circle cx="15" cy="15" r="1.5" fill="%234ecdc4" opacity="0.1"/><rect x="10" y="2" width="2" height="2" fill="%23ffd93d" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23confetti)"/></svg>')
+          repeat;
+        opacity: 0.3;
+        border-radius: 20px;
+      }
+
+      .celebration-header {
+        text-align: center;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 2;
+        flex-shrink: 0;
+      }
+
+      .celebration-emojis {
+        font-size: clamp(1.6em, 5vw, 2em);
+        animation: celebrate 2s ease-in-out infinite alternate;
+        margin-bottom: 10px;
+      }
+
+      @keyframes celebrate {
+        from {
+          transform: scale(1) rotate(-5deg);
+        }
+        to {
+          transform: scale(1.1) rotate(5deg);
+        }
+      }
+
+      .back-title {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(1.6em, 5vw, 2em);
+        font-weight: 700;
+        color: #e74c3c;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+      }
+
+      .event-details {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(15px);
+        border-radius: 15px;
+        padding: 18px;
+        margin: 10px 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        position: relative;
+        z-index: 2;
+        flex-shrink: 0;
+      }
+
+      .details-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.1em, 4vw, 1.2em);
+        font-weight: 700;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(44, 62, 80, 0.1);
+        transition: all 0.3s ease;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+
+      .detail-row:hover {
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 8px;
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      .detail-row:last-child {
+        border-bottom: none;
+      }
+
+      .detail-icon {
+        font-size: 1.1em;
+        margin-right: 8px;
+      }
+
+      .detail-label {
+        font-weight: 600;
+        color: #34495e;
+        display: flex;
+        align-items: center;
+        font-size: clamp(0.85em, 3.5vw, 0.95em);
+        flex: 1;
+        min-width: 120px;
+      }
+
+      .detail-value {
+        color: #e74c3c;
+        font-weight: 700;
+        text-align: right;
+        font-size: clamp(0.85em, 3.5vw, 0.95em);
+        flex: 1;
+        word-break: break-word;
+      }
+
+      .detail-value a {
+        color: #e74c3c;
+        text-decoration: none;
+        border-bottom: 1px dotted #e74c3c;
+        transition: all 0.3s ease;
+      }
+
+      .detail-value a:hover {
+        color: #c0392b;
+        border-bottom-color: #c0392b;
+      }
+
+      .rsvp-section {
+        text-align: center;
+        margin-top: 15px;
+        position: relative;
+        z-index: 2;
+        flex-shrink: 0;
+      }
+
+      .rsvp-text {
+        font-size: clamp(0.85em, 3.5vw, 0.9em);
+        margin-bottom: 12px;
+        color: #2c3e50;
+        font-weight: 500;
+        line-height: 1.4;
+      }
+
+      .rsvp-button {
+        background: linear-gradient(45deg, #ff6b6b, #ee5a24, #ff9f43);
+        color: white;
+        padding: 14px 28px;
+        border: none;
+        border-radius: 25px;
+        font-family: "Poppins", sans-serif;
+        font-size: clamp(1em, 3.5vw, 1.1em);
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        overflow: hidden;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .rsvp-button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .rsvp-button:hover,
+      .rsvp-button:active {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 12px 30px rgba(255, 107, 107, 0.6);
+      }
+
+      .rsvp-button:hover::before,
+      .rsvp-button:active::before {
+        left: 100%;
+      }
+
+      .floating-particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .particle {
+        position: absolute;
+        font-size: 1.5em;
+        opacity: 0.7;
+        animation: float 8s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+          opacity: 0.7;
+        }
+        50% {
+          transform: translateY(-30px) rotate(180deg);
+          opacity: 1;
+        }
+      }
+
+      .confetti-explosion {
+        position: fixed;
+        pointer-events: none;
+        z-index: 1000;
+      }
+
+      .confetti-piece {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #ff6b6b;
+      }
+
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(-100vh) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Mobile specific optimizations */
+      @media (max-width: 768px) {
+        body {
+          padding: 5px;
+        }
+        
+        .invitation-wrapper {
+          width: 95vw;
+          height: 90vh;
+          max-width: 360px;
+          max-height: 580px;
+        }
+
+        .detail-row {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 5px;
+        }
+
+        .detail-value {
+          text-align: left;
+          width: 100%;
+          margin-top: 2px;
+        }
+
+        .back-cover {
+          padding: 15px;
+        }
+
+        .event-details {
+          padding: 15px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .detail-row {
+          padding: 8px 0;
+        }
+        
+        .detail-label,
+        .detail-value {
+          font-size: 0.9em;
+        }
+        
+        .rsvp-button {
+          padding: 12px 24px;
+          font-size: 1em;
+        }
+      }
+
+      @media (max-width: 390px) {
+        .back-cover {
+          padding: 12px;
+        }
+
+        .event-details {
+          padding: 12px;
+        }
+
+        .detail-label,
+        .detail-value {
+          font-size: 0.85em;
+        }
+      }
+
+      /* Landscape orientation on mobile */
+      @media (max-height: 500px) and (orientation: landscape) {
+        .invitation-wrapper {
+          height: 95vh;
+          width: 70vh;
+        }
+        
+        .back-cover {
+          padding: 10px;
+        }
+        
+        .event-details {
+          padding: 10px;
+        }
+        
+        .detail-row {
+          padding: 6px 0;
+        }
+      }
+
+      /* Reduced motion for accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stars"></div>
+    <div class="floating-particles"></div>
+
+    <div class="invitation-wrapper">
+      <div class="invitation-book" id="invitationBook">
+        <!-- Trang trước -->
+        <div class="page front-cover">
+          <div class="front-title">🎊 Lời Mời Đặc Biệt 🎊</div>
+          <div class="front-subtitle">Bạn được trân trọng mời tham dự</div>
+          <div class="front-main-text">🎂 TIỆC SINH NHẬT HOÀNH TRÁNG 🎂</div>
+          <div class="open-instruction">👆 Chạm để mở thiệp mời</div>
+        </div>
+
+        <!-- Trang sau -->
+        <div class="page back-cover">
+          <div class="celebration-header">
+            <div class="celebration-emojis">🎉🎂🎈</div>
+            <div class="back-title">SINH NHẬT VÀNG</div>
+          </div>
+
+          <div class="event-details">
+            <div class="details-title">✨ CHI TIẾT SỰ KIỆN ✨</div>
+
+            <div class="detail-row">
+              <div class="detail-label">
+                <span class="detail-icon">👑</span>
+                Chủ nhân tiệc:
+              </div>
+              <div class="detail-value">Hồ Nguyễn Tấn Trúc</div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-label">
+                <span class="detail-icon">📅</span>
+                Ngày tổ chức:
+              </div>
+              <div class="detail-value">05/09/2025</div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-label">
+                <span class="detail-icon">⏰</span>
+                Thời gian:
+              </div>
+              <div class="detail-value">19 giờ 00 phút</div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-label">
+                <span class="detail-icon">📍</span>
+                Địa điểm:
+              </div>
+              <div class="detail-value">
+                <a
+                  href="https://www.google.com/maps/place/The+Next+BBQ+Quang+Trung/@10.8406098,106.6433625,869m/data=!3m2!1e3!4b1!4m6!3m5!1s0x317529175b7bb34d:0x14b36eda3b607c6e!8m2!3d10.8406098!4d106.6459374!16s%2Fg%2F11wqyt9pw0?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  The Next BBQ Quang Trung
+                </a>
+              </div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-label">
+                <span class="detail-icon">👕</span>
+                Trang phục:
+              </div>
+              <div class="detail-value">Tùy chọn</div>
+            </div>
+          </div>
+
+          <div class="rsvp-section">
+            <div class="rsvp-text">
+              Rất mong được gặp bạn trong ngày đặc biệt này!
+            </div>
+            <button class="rsvp-button" onclick="handleRSVP()">
+              💌 Xác Nhận Tham Dự 💌
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Biến kiểm soát trạng thái
+      let isFlipped = false;
+      let animationInProgress = false;
+      let isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth <= 768;
+
+      // Lấy element chính
+      const invitationBook = document.getElementById("invitationBook");
+
+      // Tối ưu cho mobile - tắt scroll body khi cần thiết
+      function disableBodyScroll() {
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+      }
+
+      function enableBodyScroll() {
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+      }
+
+      // Hàm lật thiệp được tối ưu
+      function flipInvitation() {
+        if (animationInProgress) return;
+
+        // Haptic feedback cho mobile
+        if (navigator.vibrate) {
+          navigator.vibrate(50);
+        }
+
+        animationInProgress = true;
+
+        if (!isFlipped) {
+          // Lật mở thiệp
+          invitationBook.classList.add("flip");
+          isFlipped = true;
+          disableBodyScroll();
+
+          // Tạo hiệu ứng đặc biệt khi mở
+          setTimeout(() => {
+            createConfettiExplosion();
+            createMagicalGlow();
+          }, 600);
+        } else {
+          // Đóng thiệp lại
+          invitationBook.classList.remove("flip");
+          isFlipped = false;
+          enableBodyScroll();
+        }
+
+        // Reset animation flag - tăng thời gian cho mobile
+        setTimeout(() => {
+          animationInProgress = false;
+        }, isMobile ? 1200 : 1500);
+      }
+
+      // Touch handling được cải thiện cho mobile
+      let touchData = {
+        startX: 0,
+        startY: 0,
+        startTime: 0,
+        moved: false,
+        element: null
+      };
+
+      // Enhanced touch events cho mobile
+      document.addEventListener("touchstart", function (e) {
+        const target = e.target.closest('.invitation-book');
+        if (!target) return;
+        
+        touchData.element = target;
+        touchData.startX = e.touches[0].clientX;
+        touchData.startY = e.touches[0].clientY;
+        touchData.startTime = Date.now();
+        touchData.moved = false;
+        
+        // Visual feedback ngay lập tức
+        target.style.transform = 'scale(0.98)';
+        
+        e.preventDefault();
+      }, { passive: false });
+
+      document.addEventListener("touchmove", function (e) {
+        if (!touchData.element) return;
+        
+        if (!touchData.moved) {
+          const deltaX = Math.abs(e.touches[0].clientX - touchData.startX);
+          const deltaY = Math.abs(e.touches[0].clientY - touchData.startY);
+          
+          if (deltaX > 15 || deltaY > 15) {
+            touchData.moved = true;
+            touchData.element.style.transform = '';
+          }
+        }
+        
+        if (!touchData.moved) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      document.addEventListener("touchend", function (e) {
+        if (!touchData.element) return;
+        
+        const touchDuration = Date.now() - touchData.startTime;
+        const target = touchData.element;
+        
+        // Reset visual feedback
+        target.style.transform = '';
+        
+        // Chỉ flip nếu là tap nhanh và không di chuyển
+        if (!touchData.moved && touchDuration < 1000) {
+          e.preventDefault();
+          e.stopPropagation();
+          flipInvitation();
+        }
+        
+        // Reset touch data
+        touchData.element = null;
+      }, { passive: false });
+
+      // Click handler cho desktop
+      invitationBook.addEventListener("click", function (e) {
+        if (e.detail === 0 || !isMobile) {
+          e.preventDefault();
+          e.stopPropagation();
+          flipInvitation();
+        }
+      });
+
+      // Ngăn chặn gestures trên iOS
+      ["gesturestart", "gesturechange", "gestureend"].forEach(eventType => {
+        invitationBook.addEventListener(eventType, function(e) {
+          e.preventDefault();
+        });
+      });
+
+      // Tạo hiệu ứng confetti được tối ưu
+      function createConfettiExplosion() {
+        const colors = [
+          "#ff6b6b",
+          "#4ecdc4",
+          "#45b7d1",
+          "#96ceb4",
+          "#ffd93d",
+          "#ff9f43",
+          "#ee5a24",
+          "#f093fb",
+        ];
+        
+        const confettiContainer = document.createElement("div");
+        confettiContainer.className = "confetti-explosion";
+        confettiContainer.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: 1000;
+        `;
+        document.body.appendChild(confettiContainer);
+
+        const confettiCount = isMobile ? 30 : 60;
+        
+        for (let i = 0; i < confettiCount; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti-piece";
+          confetti.style.cssText = `
+            position: absolute;
+            left: ${Math.random() * 100}vw;
+            top: -10px;
+            width: ${Math.random() * 6 + 3}px;
+            height: ${Math.random() * 6 + 3}px;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            animation: confetti-fall ${Math.random() * 2.5 + 2}s linear forwards;
+            animation-delay: ${Math.random() * 1}s;
+            border-radius: ${Math.random() > 0.5 ? "50%" : "0"};
+            will-change: transform;
+          `;
+          confettiContainer.appendChild(confetti);
+        }
+
+        setTimeout(() => {
+          if (confettiContainer.parentNode) {
+            confettiContainer.remove();
+          }
+        }, 4000);
+      }
+
+      // Tạo hiệu ứng ánh sáng ma thuật
+      function createMagicalGlow() {
+        const glow = document.createElement("div");
+        glow.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: min(60vw, 200px);
+          height: min(60vw, 200px);
+          background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 30%, transparent 70%);
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 999;
+          animation: magicalGlow 2.5s ease-out forwards;
+        `;
+
+        const style = document.createElement("style");
+        style.textContent = `
+          @keyframes magicalGlow {
+            0% { 
+              opacity: 0; 
+              transform: translate(-50%, -50%) scale(0.3); 
+            }
+            50% { 
+              opacity: 1; 
+              transform: translate(-50%, -50%) scale(1.2); 
+            }
+            100% { 
+              opacity: 0; 
+              transform: translate(-50%, -50%) scale(1.8); 
+            }
+          }
+        `;
+        document.head.appendChild(style);
+        document.body.appendChild(glow);
+
+        setTimeout(() => {
+          if (glow.parentNode) glow.remove();
+          if (style.parentNode) style.remove();
+        }, 2500);
+      }
+
+      // Tạo các ngôi sao lấp lánh
+      function createStars() {
+        const starsContainer = document.querySelector(".stars");
+        const numStars = isMobile ? 20 : 35;
+
+        for (let i = 0; i < numStars; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          star.style.left = Math.random() * 100 + "%";
+          star.style.top = Math.random() * 100 + "%";
+          star.style.animationDelay = Math.random() * 3 + "s";
+          star.style.animationDuration = Math.random() * 2 + 2 + "s";
+          starsContainer.appendChild(star);
+        }
+      }
+
+      // Tạo các hạt bay lơ lửng
+      function createFloatingParticles() {
+        const particles = [
+          "🎈", "🎉", "🎂", "🎁", "✨", "🌟", "💫", "🎊", "🍰", "🎀"
+        ];
+        const container = document.querySelector(".floating-particles");
+        const particleCount = isMobile ? 5 : 8;
+
+        for (let i = 0; i < particleCount; i++) {
+          const element = document.createElement("div");
+          element.className = "particle";
+          element.textContent = particles[i % particles.length];
+          element.style.left = Math.random() * 90 + 5 + "%";
+          element.style.top = Math.random() * 90 + 5 + "%";
+          element.style.animationDelay = i * 1 + "s";
+          element.style.animationDuration = Math.random() * 4 + 6 + "s";
+          container.appendChild(element);
+        }
+      }
+
+      // Xử lý nút RSVP được cải thiện
+      function handleRSVP() {
+        const button = event.target;
+        
+        if (button.disabled) return;
+        button.disabled = true;
+        
+        button.style.transform = "translateY(-3px) scale(1.1)";
+        
+        if (navigator.vibrate) {
+          navigator.vibrate([100, 50, 100]);
+        }
+
+        createHeartExplosion(button);
+
+        setTimeout(() => {
+          const alertMsg = "🎉✨ CẢM ƠN BẠN ĐÃ XÁC NHẬN THAM DỰ! ✨🎉\n\nChúng tôi rất mong được gặp bạn trong ngày đặc biệt này!\nHãy chuẩn bị tinh thần cho một bữa tiệc không thể quên! 🎂🎈";
+          
+          showCustomAlert(alertMsg);
+          
+          button.style.transform = "";
+          button.disabled = false;
+        }, 300);
+      }
+
+      // Custom alert được thiết kế cho mobile
+      function showCustomAlert(message) {
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.85);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 10000;
+          padding: 20px;
+          backdrop-filter: blur(5px);
+        `;
+
+        const alertBox = document.createElement('div');
+        alertBox.style.cssText = `
+          background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+          padding: 30px 25px;
+          border-radius: 25px;
+          text-align: center;
+          max-width: min(90vw, 350px);
+          width: 100%;
+          box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+          animation: alertSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+          border: 2px solid rgba(255, 255, 255, 0.3);
+        `;
+
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes alertSlideIn {
+            from {
+              opacity: 0;
+              transform: scale(0.7) translateY(50px) rotate(-5deg);
+            }
+            to {
+              opacity: 1;
+              transform: scale(1) translateY(0) rotate(0deg);
+            }
+          }
+          @keyframes alertPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+          }
+        `;
+        document.head.appendChild(style);
+
+        const messageEl = document.createElement('p');
+        messageEl.textContent = message;
+        messageEl.style.cssText = `
+          font-family: 'Poppins', sans-serif;
+          color: #2c3e50;
+          font-size: clamp(14px, 4vw, 16px);
+          line-height: 1.6;
+          margin-bottom: 25px;
+          white-space: pre-line;
+          font-weight: 500;
+        `;
+
+        const okButton = document.createElement('button');
+        okButton.textContent = 'Tuyệt vời! 🎉';
+        okButton.style.cssText = `
+          background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+          color: white;
+          border: none;
+          padding: 15px 35px;
+          border-radius: 30px;
+          font-family: 'Poppins', sans-serif;
+          font-weight: 700;
+          font-size: clamp(14px, 4vw, 16px);
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          min-height: 50px;
+          animation: alertPulse 2s ease-in-out infinite;
+          touch-action: manipulation;
+        `;
+
+        okButton.addEventListener('touchstart', () => {
+          okButton.style.transform = 'scale(0.95)';
+          if (navigator.vibrate) navigator.vibrate(30);
+        }, { passive: true });
+
+        okButton.addEventListener('touchend', () => {
+          okButton.style.transform = 'scale(1.05)';
+        }, { passive: true });
+
+        okButton.addEventListener('click', () => {
+          modal.style.animation = 'alertSlideOut 0.3s ease-in forwards';
+          
+          const outStyle = document.createElement('style');
+          outStyle.textContent = `
+            @keyframes alertSlideOut {
+              from { opacity: 1; transform: scale(1); }
+              to { opacity: 0; transform: scale(0.8) translateY(-30px); }
+            }
+          `;
+          document.head.appendChild(outStyle);
+          
+          setTimeout(() => {
+            if (modal.parentNode) modal.remove();
+            if (style.parentNode) style.remove();
+            if (outStyle.parentNode) outStyle.remove();
+          }, 300);
+        });
+
+        alertBox.appendChild(messageEl);
+        alertBox.appendChild(okButton);
+        modal.appendChild(alertBox);
+        document.body.appendChild(modal);
+
+        setTimeout(() => {
+          if (modal.parentNode) {
+            modal.style.opacity = '0';
+            setTimeout(() => {
+              if (modal.parentNode) {
+                modal.remove();
+                style.remove();
+              }
+            }, 300);
+          }
+        }, 8000);
+
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            okButton.click();
+          }
+        });
+      }
+
+      // Tạo hiệu ứng tim bay
+      function createHeartExplosion(button) {
+        const hearts = ["💖", "💕", "💗", "💓", "💘"];
+        const rect = button.getBoundingClientRect();
+        const heartCount = isMobile ? 5 : 8;
+
+        for (let i = 0; i < heartCount; i++) {
+          const heart = document.createElement("div");
+          heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+          heart.style.cssText = `
+            position: fixed;
+            left: ${rect.left + rect.width / 2}px;
+            top: ${rect.top + rect.height / 2}px;
+            font-size: clamp(1.2em, 4vw, 1.5em);
+            pointer-events: none;
+            z-index: 2000;
+            animation: heartFly ${Math.random() * 1.5 + 2}s ease-out forwards;
+            animation-delay: ${i * 0.1}s;
+            will-change: transform;
+          `;
+
+          const angle = (Math.PI * 2 * i) / heartCount;
+          const distance = isMobile ? 60 + Math.random() * 40 : 80 + Math.random() * 50;
+          const endX = rect.left + rect.width / 2 + Math.cos(angle) * distance;
+          const endY = rect.top + rect.height / 2 + Math.sin(angle) * distance - 40;
+
+          const style = document.createElement("style");
+          style.textContent = `
+            @keyframes heartFly {
+              0% { 
+                transform: translate(0, 0) scale(0.5);
+                opacity: 1;
+              }
+              50% {
+                transform: translate(${(endX - rect.left - rect.width / 2) * 0.7}px, ${(endY - rect.top - rect.height / 2) * 0.7}px) scale(1.2);
+                opacity: 1;
+              }
+              100% { 
+                transform: translate(${endX - rect.left - rect.width / 2}px, ${endY - rect.top - rect.height / 2}px) scale(1.5);
+                opacity: 0;
+              }
+            }
+          `;
+          document.head.appendChild(style);
+          document.body.appendChild(heart);
+
+          setTimeout(() => {
+            if (heart.parentNode) heart.remove();
+            if (style.parentNode) style.remove();
+          }, 3000);
+        }
+      }
+
+      // Khởi tạo khi trang load
+      document.addEventListener("DOMContentLoaded", function () {
+        // Update mobile detection
+        isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || window.innerWidth <= 768;
+        
+        // iOS Safari fixes
+        if (navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome')) {
+          document.body.style.webkitTouchCallout = 'none';
+          document.body.style.webkitUserSelect = 'none';
+          
+          let viewportMeta = document.querySelector('meta[name="viewport"]');
+          if (!viewportMeta) {
+            viewportMeta = document.createElement('meta');
+            viewportMeta.name = 'viewport';
+            document.head.appendChild(viewportMeta);
+          }
+          viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+        }
+        
+        // Samsung Browser fixes
+        if (navigator.userAgent.includes('SamsungBrowser')) {
+          const style = document.createElement('style');
+          style.textContent = `
+            * {
+              -webkit-tap-highlight-color: transparent !important;
+            }
+            .invitation-book {
+              -webkit-transform: translateZ(0);
+              transform: translateZ(0);
+            }
+          `;
+          document.head.appendChild(style);
+        }
+        
+        createStars();
+        createFloatingParticles();
+
+        setTimeout(() => {
+          invitationBook.style.transition = "transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)";
+        }, 500);
+      });
+
+      // Prevent context menu
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+
+      // Prevent double-tap zoom
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', function (event) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, { passive: false });
+      
+      // Prevent pinch zoom
+      document.addEventListener('touchmove', function(event) {
+        if (event.scale !== 1) {
+          event.preventDefault();
+        }
+      }, { passive: false });
+
+      // Handle orientation change
+      let orientationTimeout;
+      window.addEventListener('orientationchange', function() {
+        clearTimeout(orientationTimeout);
+        orientationTimeout = setTimeout(() => {
+          const viewportMeta = document.querySelector('meta[name="viewport"]');
+          if (viewportMeta) {
+            viewportMeta.content = "width=device-width, initial-scale=1.0, user-scalable=no";
+          }
+          
+          if (isFlipped) {
+            enableBodyScroll();
+          }
+        }, 500);
+      });
+
+      // Handle visibility change
+      document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+          document.body.style.animationPlayState = "paused";
+        } else {
+          document.body.style.animationPlayState = "running";
+        }
+      });
+
+      // Safe area insets
+      if (CSS.supports('padding-top: env(safe-area-inset-top)')) {
+        const style = document.createElement('style');
+        style.textContent = `
+          body {
+            padding-top: max(10px, env(safe-area-inset-top));
+            padding-bottom: max(10px, env(safe-area-inset-bottom));
+            padding-left: max(5px, env(safe-area-inset-left));
+            padding-right: max(5px, env(safe-area-inset-right));
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    </script>
+  </body>
+</html>
